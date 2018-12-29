@@ -130,10 +130,6 @@
 
 
 
-
-
-
-
 ###通用规范
 
 1. 大括号
@@ -310,7 +306,16 @@
      if (isAwesome) {}
      ```
 
-9. 使用 `NS_ENUM` 替代 `enum`，`NS_ENUM` 不要全部写在一个文件里面。
+9. Init 方法，应该遵循 Apple 生成代码模板的命名规则。应该使用 instancetype，而不是 id。
+
+   ```objective-c
+   //不建议
+   - (id)init {}
+   //推荐
+   
+   ```
+
+10. 使用 `NS_ENUM` 替代 `enum`，`NS_ENUM` 不要全部写在一个文件里面。
 
    ```objective-c
    //不建议
