@@ -1,10 +1,10 @@
 # iOS 编码规范
 
-> 2019.01.02，该文档为纯编码规范，大部分是统一编码习惯，并不会涉及到代码规则：比如 NSInteger 替代 Int，NSArray 作为属性需要用 copy 关键字等。
+> 2019.01.02，该文档为纯编码规范，主要是统一编码习惯，并不会涉及到代码优化：NSInteger 替代 Int，NSArray 类型属性需要用 copy 特性等。
 
 ###核心原则
 
-1. 使用 US 英语命名（类，方法，宏，ImageSet，Localizable.string，配置，#pragma mark）。
+1. 使用 US 英语命名（文件名，类，方法，宏，ImageSet，Localizable.string，配置，#pragma mark）。
 
    ```objective-c
    Colour，YanSe，颜色 //不建议(英式英语，拼音，中文)
@@ -12,6 +12,7 @@
    
    #pragma mark - 懒加载 //不建议
    #pragma mark - Property Method //推荐
+   #pragma mark - Accessor Methods //推荐
    ```
 
 
@@ -33,7 +34,6 @@
    result = a > b ? x : y; 
    ```
 
-3. 严格遵守项目架构各层的职责划分
 
 
 
@@ -56,7 +56,7 @@
    - 类
      ```objective-c
      @interface myCouponVC () //不建议(首字母没有大写，且没有前缀)
-     @interface RGMyCouponVC () //推荐
+     @interface RGMyCouponViewController () //推荐
      ```
 
    - 常量
@@ -69,7 +69,7 @@
      ```objective-c
      //常量宏
      #define useLocalhost 0 //不建议
-     #define kUseLocalhost 0 //推荐
+     #define kUseLocalHost 0 //推荐
 
      //操作宏
      #define NullFilterString(s) //不建议
@@ -85,9 +85,9 @@
     ```
 
 3. 前缀
-    - 前缀以全大写命名。比如 RG；
+    - 前缀以全大写命名。比如 RG、ZF；
     - 类、分类、协议、操作宏、枚举使用前缀，但不要为成员变量，方法使用前缀；
-    - 命名前缀不要与 Cocoa 框架与第三方组件冲突。
+    - 命名前缀不要与 Cocoa 框架与第三方组件冲突。比如 UI、NS。
 
 4. 不要使用 “and” 和 “width” 来连接参数
 
@@ -100,7 +100,7 @@
 
     ```objective-c
     //不建议
-    UILabel * name;
+    UILabel * nameLbl;
     UIViewController * homeVC;
     UICollectionViewCell * productCCell; //TODO:待定
     
@@ -111,7 +111,7 @@
 
 6. 文件命名
 
-    - 如果头文件内只定义了单个类或者协议，直接用类名或者协议名来命名头文件，比如`NSLocale.h`定义了`NSLocale`；
+    - 如果头文件内只定义了单个类或者协议，直接用类名或者协议名来命名头文件，比如 `RGHomeViewController.h` 定义了 `RGHomeViewController`；
 
     - 如果头文件内定义了一系列的类、协议、类别，使用其中最主要的类名来命名头文件，比如`NSString.h`定义了`NSString`和`NSMutableString`；
 
@@ -127,33 +127,13 @@
       UIButton+RGPointInside.h
       ```
 
-7. 常用缩写
-
-| 类型             | 缩写           |
-| :--------------- | -------------- |
-| Dictionary       | Dict           |
-| Bool             | isXXXX/canXXXX |
-| UITableViewCell  | Cell           |
-| UICollectionCell | CCell          |
-| Calculate        | calc           |
-| Information      | info           |
-| Initialize       | init           |
-| Integer          | int            |
-| Maximum          | max            |
-| Minimum          | min            |
-| Message          | msg            |
-| Temporary        | temp           |
-|                  |                |
-|                  |                |
-|                  |                |
-
 
 
 ###通用规范
 
 1. 大括号
 
-- 开始于行尾，结束于行首，包括 `Method`，`if`，`else`，`switch`，`while` 等；
+- 开始于行尾，结束于行首，包括 `Method`，`if`，`else`，`switch`，`while` ，`代码块`等；
   ```objective-c
   //不建议
   if (condition)
@@ -166,7 +146,7 @@
   }
   ```
 
-- 所有流程控制语句必须加上括号，即使只要一行。
+- 所有流程控制语句必须加上括号，即使只有一行。
 
   ```objective-c
   //不建议
@@ -183,7 +163,7 @@
 
 2. 代码长度
 
-   - 一个方法内部最多五十行，如果超过就精简代码。方便之后进行热修复和代码重构。
+   - **一个方法**内部最多 **50** 行，如果超过就需要精简代码。方便以后阅读、热修复和代码重构；
 
    - 每行**代码长度**不超过 **80** Column
 
@@ -265,7 +245,7 @@
      [[NSUserDefaults standardUserDefaults] objectForKey:@"name"];
      ```
 
-   - NSDictionary
+   - NSDictionary，key : value 之间留有空格
 
      ```objective-c
      //不建议
@@ -291,28 +271,28 @@
 
 5. @property
 
-   ```objective-c
-   //不建议
-   @property(readonly, copy, nullable, nonatomic) NSString *nibName;
-   
-   //推荐(保证特性关键字顺序一致)
-   @property(nullable, nonatomic, readonly, copy) NSString *nibName;
-   ```
+   - 保持属性的特性的顺序一致
 
+     ```objective-c
+     //不建议
+     @property(readonly, copy, nullable, nonatomic) NSString *nibName;
+     
+     //推荐(保证特性关键字顺序一致)
+     @property(nullable, nonatomic, readonly, copy) NSString *nibName;
+     ```
 
+   - 保持属性的特性的安全性
 
-6. .h 文件
-
-   ```objective-c
-   //.h 不建议
-   @property(nonatomic, strong) UILabel * titleLabel;
-   
-   //推荐
-   //.h
-   @property(nonatomic, strong, readonly) UILabel * titleLabel;
-   //.m
-   @property(nonatomic, strong) UILabel * titleLabel;
-   ```
+     ```objective-c
+     //.h 不建议
+     @property(nonatomic, strong) UILabel * titleLabel;
+     
+     //推荐
+     //.h
+     @property(nonatomic, strong, readonly) UILabel * titleLabel;
+     //.m
+     @property(nonatomic, strong) UILabel * titleLabel;
+     ```
 
 
 
@@ -505,7 +485,7 @@
 
 ### 注释
 
-1. .h 文件建议所有的公共属性，方法，变量都必须加上注释；
+1. .h 文件建议所有的公共属性，方法，~~变量~~都必须加上注释；
 
 2. protocol 必须加上注释；
 
