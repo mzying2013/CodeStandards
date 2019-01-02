@@ -281,7 +281,7 @@
      @property(nullable, nonatomic, readonly, copy) NSString *nibName;
      ```
 
-   - 保持属性的特性的安全性
+   - 控制属性的可访问性
 
      ```objective-c
      //.h 不建议
@@ -298,7 +298,7 @@
 
 7. 变量
 
-   - 尽量用变量，取代属性
+   - 尽量用变量取代属性
 
      ```objective-c
      //TODO:待定
@@ -355,70 +355,48 @@
    - (instancetype)init {}
    ```
 
-10. 枚举
+10. 枚举，`NS_ENUM` 不要全部写在一个文件里面，定义在各自的模块里面。
 
-  - 使用 `NS_ENUM` 替代 `enum`
+11. 分类，使用 NSString+Cateogry 替换 NSStringUtils。
 
-  ```objective-c
-  //不建议
-  typedef enum PathPHPTypes{
-      PathPHPTypeNone,
-      PathPHPTypeCommand,
-      PathPHPTypeUser
-  }PathPHPType;
-  
-  //推荐
-  typedef NS_ENUM(NSUInteger, PathPHPTypes){
-      PathPHPTypeNone = 0,
-      PathPHPTypeCommand,
-      PathPHPTypeUser
-  };
-  ```
+12. \#import 的顺序
 
-  - `NS_ENUM` 不要全部写在一个文件里面，定义在各自的模块里面。
+    ```objective-c
+    //模板
+    #import <系统库>
+    #import <第三方库>
+    #import "其它类"
+    
+    //不建议
+    #import "RGModel.h"
+    #import <UIKit/UIKit.h>
+    #import <Google/Analytics.h>
+    
+    //推荐
+    #import <UIKit/UIKit.h>
+    #import <Google/Analytics.h>
+    #import "RGModel.h"
+    ```
 
+13. If 嵌套
 
-8. 分类，使用 NSString+Cateogry 替换 NSStringUtils。
+    ```objective-c
+    //不建议
+    if ([obj boolValue]){
+        if (valid){
+            //Do something
+        }    
+    }
 
-9. \#import 的顺序
-
-      ```objective-c
-      //模板
-      #import <系统库>
-      #import <第三方库>
-      #import "其它类"
-      
-      //不建议
-      #import "RGModel.h"
-      #import <UIKit/UIKit.h>
-      #import <Google/Analytics.h>
-      
-      //推荐
-      #import <UIKit/UIKit.h>
-      #import <Google/Analytics.h>
-      #import "RGModel.h"
-      ```
-
-10. If 嵌套
-
-      ```objective-c
-      //不建议
-      if ([obj boolValue]){
-          if (valid){
-              //Do something
-          }    
-      }
-      
-      //推荐
-      if (![obj boolValue]){
-          return;
-      }
-      if (!valid){
-          return;
-      }
-      //Do something
-      ```
-
+    //推荐
+    if (![obj boolValue]){
+        return;
+    }
+    if (!valid){
+        return;
+    }
+    //Do something
+    ```
 
 
 
