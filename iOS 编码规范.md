@@ -79,6 +79,7 @@
 2. 全局/局部变量不应该包含下划线
 
     ```objective-c
+    //TODO: 待确认
     BOOL  _isAddToCartNeedPopConfirm; //不建议
     BOOL  isAddToCartNeedPopConfirm; //推荐
     ```
@@ -108,7 +109,25 @@
     UIViewController * homeViewController;
     ```
 
-6. 常用缩写
+6. 文件命名
+
+    - 如果头文件内只定义了单个类或者协议，直接用类名或者协议名来命名头文件，比如`NSLocale.h`定义了`NSLocale`；
+
+    - 如果头文件内定义了一系列的类、协议、类别，使用其中最主要的类名来命名头文件，比如`NSString.h`定义了`NSString`和`NSMutableString`；
+
+    - 分类的命名应该依据其主要的功能。
+
+      ```objective-c
+      //不建议
+      UIColor+ZHCategory.h
+      UIButton+Extension.h
+          
+      //推荐
+      UIColor+ZHRandom.h
+      UIButton+RGPointInside.h
+      ```
+
+7. 常用缩写
 
 | 类型             | 缩写           |
 | :--------------- | -------------- |
@@ -172,15 +191,39 @@
        //不建议
        [self.contentLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT,MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:self.contentLabel.font} context:nil];
        
+       
        //推荐
        NSDictionary * attributes = @{NSFontAttributeName:self.contentLabel.font};
        NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
        CGSize size = CGSizeMake(MAXFLOAT,MAXFLOAT);
-       //冒号对齐(Block 除外)
+       //冒号对齐
        [self.contentLabel.text boundingRectWithSize:size
                                             options:options
                                          attributes:attributes
                                             context:nil];
+       //方法名过长，推荐使用 Tab 缩进
+       [self shorts:@"shorts"
+        		middlelongKeywords:@"more"
+              eventLongerKeywords:@"event"];
+       
+       
+       //不建议，Block 无需冒号对齐
+       [UIView animateWithDuration:1.0
+                        animations:^{
+                            //Do something
+                        }
+                        completion:^(BOOL finished) {
+                            //Do something
+                        }];
+       //推荐
+       [UIView animateWithDuration:1.0 animations:^{
+           //Do something
+       } completion:^(BOOL finished) {
+           //Do something
+       }];
+       
+       
+       
        //推荐
        NSArray *array = @[
                           @"This",
@@ -190,6 +233,8 @@
                           ];
        ```
        > Xcode -> Preferences -> Text Editing -> Page guide at column: **80**
+
+
 
 3. 语句中留有合适的空格
 
@@ -220,6 +265,17 @@
      [[NSUserDefaults standardUserDefaults] objectForKey:@"name"];
      ```
 
+   - NSDictionary
+
+     ```objective-c
+     //不建议
+     @{NSForegroundColorAttributeName:fontColor}
+     
+     //推荐(冒号之间留有空格)
+     @{NSForegroundColorAttributeName : fontColor}
+     ```
+
+
 
 4. @Class
 
@@ -244,14 +300,18 @@
    ```
 
 
+
 6. .h 文件
 
    ```objective-c
-   //不建议
-   @property(nullable, nonatomic, readonly, copy) NSString *nibName;
-   @property(nullable, nonatomic, readonly, strong) NSBundle *nibBundle;
-   //TODO: 暂未想好
+   //.h 不建议
+   @property(nonatomic, strong) UILabel * titleLabel;
    
+   //推荐
+   //.h
+   @property(nonatomic, strong, readonly) UILabel * titleLabel;
+   //.m
+   @property(nonatomic, strong) UILabel * titleLabel;
    ```
 
 
@@ -306,32 +366,36 @@
      if (isAwesome) {}
      ```
 
-9. Init 方法，应该遵循 Apple 生成代码模板的命名规则。应该使用 instancetype，而不是 id。
+9. 构造方法，应该遵循 Apple 生成代码模板的命名规则。应该使用 instancetype，而不是 id。
 
    ```objective-c
    //不建议
    - (id)init {}
    //推荐
-   
+   - (instancetype)init {}
    ```
 
-10. 使用 `NS_ENUM` 替代 `enum`，`NS_ENUM` 不要全部写在一个文件里面。
+10. 枚举
 
-   ```objective-c
-   //不建议
-   typedef enum PathPHPTypes{
-       PathPHPTypeNone,
-       PathPHPTypeCommand,
-       PathPHPTypeUser
-   }PathPHPType;
-   
-   //推荐
-   typedef NS_ENUM(NSUInteger, PathPHPTypes){
-       PathPHPTypeNone = 0,
-       PathPHPTypeCommand,
-       PathPHPTypeUser
-   };
-   ```
+  - 使用 `NS_ENUM` 替代 `enum`
+
+  ```objective-c
+  //不建议
+  typedef enum PathPHPTypes{
+      PathPHPTypeNone,
+      PathPHPTypeCommand,
+      PathPHPTypeUser
+  }PathPHPType;
+  
+  //推荐
+  typedef NS_ENUM(NSUInteger, PathPHPTypes){
+      PathPHPTypeNone = 0,
+      PathPHPTypeCommand,
+      PathPHPTypeUser
+  };
+  ```
+
+  - `NS_ENUM` 不要全部写在一个文件里面，定义在各自的模块里面。
 
 
 8. 分类，使用 NSString+Cateogry 替换 NSStringUtils。
@@ -354,6 +418,27 @@
       #import <Google/Analytics.h>
       #import "RGModel.h"
       ```
+
+10. If 嵌套
+
+      ```objective-c
+      //不建议
+      if ([obj boolValue]){
+          if (valid){
+              //Do something
+          }    
+      }
+      
+      //推荐
+      if (![obj boolValue]){
+          return;
+      }
+      if (!valid){
+          return;
+      }
+      //Do something
+      ```
+
 
 
 
