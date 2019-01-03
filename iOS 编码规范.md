@@ -20,7 +20,6 @@
    
    #pragma mark - 懒加载 //不建议
    #pragma mark - Property Method //推荐
-   #pragma mark - Accessor Method //推荐
    ```
 
 ##### 2. 代码风格，简单易懂，逻辑清晰
@@ -112,15 +111,7 @@ BuyerShow_MyStyle_Edit
 Feedback_Alert_TryAgain
 ```
 
-##### 4. 全局变量不应该包含下划线
-
-```objective-c
-//TODO: 待确认
-BOOL  _isAddToCartNeedPopConfirm; //不建议
-BOOL  isAddToCartNeedPopConfirm; //推荐
-```
-
-##### 5. 前缀
+##### 4. 前缀
 - 前缀以全大写命名。比如 RG、ZF；
 - 类、分类、协议、操作宏、枚举使用前缀，但不要为成员变量，方法使用前缀；
 - 命名前缀不要与 Cocoa 框架与第三方组件冲突。比如 UI、NS、CG。
@@ -195,7 +186,7 @@ UICollectionViewCell * productCCell;
    	...   
   }
   //推荐
-  if (condition){
+  if (condition) {
       ...
   }
   ```
@@ -208,7 +199,7 @@ UICollectionViewCell * productCCell;
   //推荐
   if (condition) {
       ...
-  }else {
+  } else {
       ...
   }
   ```
@@ -287,7 +278,7 @@ UICollectionViewCell * productCCell;
      //不建议
      NSString * title=self.isViewLoaded?@"title":@"loading";
      //推荐
-     NSString * title = self.isViewLoaded ? @"title" : @"loading";
+     NSString *title = self.isViewLoaded ? @"title" : @"loading";
      ```
 
    - 方法调用之间留有空格
@@ -332,7 +323,7 @@ UICollectionViewCell * productCCell;
      @property(readonly, copy, nullable, nonatomic) NSString *nibName;
      
      //推荐(保证特性关键字顺序一致)
-     @property(nullable, nonatomic, readonly, copy) NSString *nibName;
+     @property(nullable, nonatomic, copy, readonly) NSString *nibName;
      ```
 
    - 控制属性的可访问性
@@ -493,7 +484,7 @@ if (!valid){
 ##### 6. 属性方法
 
    ```objective-c
-   #pragma mark - Property Method/Accessor Method
+   #pragma mark - Property Method
    - (UILabel *)centerLabel {
        if (!_centerLabel) {
            _centerLabel = [UILabel new];
@@ -511,6 +502,12 @@ if (!valid){
 ##### 2. `Protocol` 必须加上注释；
 
 ##### 3. 属性或变量有默认值，必须要注明；
+
+```objective-c
+//推荐
+/** The backdrop for your app’s user interface and the object that dispatches events to your views. */
+@property (strong, nonatomic) UIWindow *window;
+```
 
 ##### 4. Block 和 方法注释必须注明其主要用途，参数和返回值必须也要注明。
 
@@ -530,4 +527,18 @@ if (!valid){
    ```
 
    > 快捷键：alt + command + / 自动生成上述注释模板
+
+##### 5. 其它建议注释方式
+
+ - 标记未完成的功能
+
+   ```objective-c
+   //TODO: Test Data
+   ```
+
+ - 标记追踪问题的位置
+
+   ```objective-c
+   //FIXME: Bug 1101
+   ```
 
