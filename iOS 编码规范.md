@@ -1,22 +1,31 @@
 # iOS 编码规范
 
-> 2019.01.02，该文档为纯编码规范，主要是统一编码习惯，并不会涉及到代码优化：NSInteger 替代 Int，NSArray 类型属性需要用 copy 特性等。
+> 2019.1.3
+>
+> 本文档并不会涉及到代码优化：NSInteger 替代 int，NSArray 类型属性需要用 copy 特性等。
+>
+> 本文档为纯编码规范，主要是为了统一编码习惯。包含核心原则，命名规范，通用规范，代码组织，注释五个主题。
+
+
 
 ###核心原则
 
-1. 使用 US 英语命名（文件名，类，方法，宏，ImageSet，Localizable.string，配置，#pragma mark）。
+##### 1. 语言，使用 US 英语命名
+
+> 文件名，类，方法，宏，ImageSet，Localizable.string Key，配置，#pragma mark，model 字段）
 
    ```objective-c
-   Colour，YanSe，颜色 //不建议(英式英语，拼音，中文)
+   Colour，manzengId，颜色 //不建议(英式英语，拼音，中文)
    Color //推荐
    
    #pragma mark - 懒加载 //不建议
    #pragma mark - Property Method //推荐
-   #pragma mark - Accessor Methods //推荐
+   #pragma mark - Accessor Method //推荐
    ```
 
+##### 2. 代码风格，简单易懂，逻辑清晰
 
-2. 代码易懂，逻辑清晰。清晰永远比简洁更重要。
+> 清晰永远比简洁更重要。
 
    ```objective-c
    insertObject:at: //不建议
@@ -30,8 +39,8 @@
    
    result = a > b ? x = c > d ? c : d : y; //不建议(多个表达式嵌套)
    //推荐
-   x = c > d ? c : d;
-   result = a > b ? x : y; 
+   msg = code > 0 ? @"Error" : @"Success";
+   result = reachable > NotReachable ? msg : @"Fail";
    ```
 
 
@@ -39,7 +48,7 @@
 
 ### 命名规范
 
-1. 遵从驼峰命名法
+##### 1. 遵从驼峰命名法
 
    - 变量
       ```objective-c
@@ -51,6 +60,9 @@
      ```objective-c
      + (void)ResetStandardUserDefaults; //不建议
      + (void)resetStandardUserDefaults; //推荐
+     //特殊情况
+     +(NSURLSessionDataTask *)GET:(NSString *)URLString;
+     +(instancetype)PDFWithImage:(UIImage *)image;
      ```
 
    - 类
@@ -73,67 +85,109 @@
 
      //操作宏
      #define NullFilterString(s) //不建议
-     s#define RGNullFilterString(s) //推荐
+     #define RGNullFilterString(s) //推荐
      ```
 
-2. 全局/局部变量不应该包含下划线
+##### 2. ImageSet，以下划线分割模块，依次递进。全小写。
 
-    ```objective-c
-    //TODO: 待确认
-    BOOL  _isAddToCartNeedPopConfirm; //不建议
-    BOOL  isAddToCartNeedPopConfirm; //推荐
-    ```
-
-3. 前缀
-    - 前缀以全大写命名。比如 RG、ZF；
-    - 类、分类、协议、操作宏、枚举使用前缀，但不要为成员变量，方法使用前缀；
-    - 命名前缀不要与 Cocoa 框架与第三方组件冲突。比如 UI、NS。
-
-4. 不要使用 “and” 和 “width” 来连接参数
-
-    ```objective-c
-    initWithTitle:withImage:andColor: //不建议
-    initWithTitle:image:color: //推荐
-    ```
-
-5. 组件名称不建议缩写
-
-    ```objective-c
-    //不建议
-    UILabel * nameLbl;
-    UIViewController * homeVC;
-    UICollectionViewCell * productCCell; //TODO:待定
-    
+```objective-c
+//不建议
+    bg
+    backImage
+        
     //推荐
-    UILabel * nameLabel;
-    UIViewController * homeViewController;
-    ```
+    product_detail_price_background
+    nav_bar_back
+```
 
-6. 文件命名
+##### 3. Localizable.string，以下划线分割模块，依次递进。首字母大写。
 
-    - 如果头文件内只定义了单个类或者协议，直接用类名或者协议名来命名头文件，比如 `RGHomeViewController.h` 定义了 `RGHomeViewController`；
+```objective-c
+//不建议
+EDIT
+tryAgain
 
-    - 如果头文件内定义了一系列的类、协议、类别，使用其中最主要的类名来命名头文件，比如`NSString.h`定义了`NSString`和`NSMutableString`；
+//推荐
+BuyerShow_MyStyle_Edit
+Feedback_Alert_TryAgain
+```
 
-    - 分类的命名应该依据其主要的功能。
+##### 4. 全局变量不应该包含下划线
 
-      ```objective-c
-      //不建议
-      UIColor+ZHCategory.h
-      UIButton+Extension.h
-          
-      //推荐
-      UIColor+ZHRandom.h
-      UIButton+RGPointInside.h
-      ```
+```objective-c
+//TODO: 待确认
+BOOL  _isAddToCartNeedPopConfirm; //不建议
+BOOL  isAddToCartNeedPopConfirm; //推荐
+```
+
+##### 5. 前缀
+- 前缀以全大写命名。比如 RG、ZF；
+- 类、分类、协议、操作宏、枚举使用前缀，但不要为成员变量，方法使用前缀；
+- 命名前缀不要与 Cocoa 框架与第三方组件冲突。比如 UI、NS、CG。
+
+
+
+##### 6. 不要使用 “and” 和 “width” 来连接参数
+
+```objective-c
+initWithTitle:withImage:andColor: //不建议
+
+initWithTitle:image:color: //推荐
+```
+
+##### 7. 组件名称不建议缩写
+
+```objective-c
+//不建议
+UILabel * nameLbl;
+UIViewController * homeVC;
+UICollectionViewCell * productCell; //TODO:待定
+
+//推荐
+UILabel * nameLabel;
+UIViewController * homeViewController;
+UICollectionViewCell * productCCell;
+```
+
+##### 8. 文件命名
+
+- 如果头文件内只定义了单个类或者协议，直接用类名或者协议名来命名头文件；
+
+  ```objective-c
+  //RGHomeViewController.h
+  @interface RGHomeViewController
+  @end
+  ```
+
+- 如果头文件内定义了一系列的类、协议、类别，使用其中最主要的类名来命名头文件；
+
+  ```objective-c
+  //NSString.h
+  @interface NSString
+  @end
+  @interface NSMutableString
+  @end
+  ```
+
+- 分类的命名应该依据其主要的功能。
+
+  ```objective-c
+  //不建议
+  UIColor+ZHCategory.h
+  UIButton+Extension.h
+      
+  //推荐
+  UIColor+ZHRandom.h
+  UIButton+RGPointBound.h
+  ```
 
 
 
 ###通用规范
 
-1. 大括号
+##### 1. 大括号
 
-- 开始于行尾，结束于行首，包括 `Method`，`if`，`else`，`switch`，`while` ，`代码块`等；
+- 开始于行尾，结束于行首，包括 `Method`，`if`，`else`，`switch`，`while` 等；
   ```objective-c
   //不建议
   if (condition)
@@ -161,9 +215,9 @@
 
 
 
-2. 代码长度
+##### 2. 代码长度
 
-   - **一个方法**内部最多 **50** 行，如果超过就需要精简代码。方便以后阅读、热修复和代码重构；
+   - **一个方法**内部最多 **50** 行，如果超过就需要精简代码，为了方便以后阅读、热修复和代码重构；
 
    - 每行**代码长度**不超过 **80** Column
 
@@ -181,7 +235,7 @@
                                             options:options
                                          attributes:attributes
                                             context:nil];
-       //方法名过长，推荐使用 Tab 缩进
+       //如果方法名过长，推荐使用 Tab 缩进
        [self shorts:@"shorts"
         		middlelongKeywords:@"more"
               eventLongerKeywords:@"event"];
@@ -216,7 +270,7 @@
 
 
 
-3. 语句中留有合适的空格
+##### 3. 语句中留有合适的空格
 
    - 类方法和实例方法的 “+” 和 “-” 需要留一个空格
 
@@ -257,7 +311,7 @@
 
 
 
-4. @Class
+##### 4. @Class
 
    ```objective-c
    //不建议
@@ -269,7 +323,7 @@
    @class UISearchDisplayController;
    ```
 
-5. @property
+##### 5. @property
 
    - 保持属性的特性的顺序一致
 
@@ -296,7 +350,7 @@
 
 
 
-7. 变量
+##### 6. 变量
 
    - 尽量用变量取代属性
 
@@ -324,7 +378,7 @@
      @end
      ```
 
-8. 布尔值
+##### 7. 布尔值
 
    - OC 使用 YES 和 NO
 
@@ -346,64 +400,53 @@
      if (isAwesome) {}
      ```
 
-9. 构造方法，应该遵循 Apple 生成代码模板的命名规则。应该使用 instancetype，而不是 id。
+##### 8. 枚举，`NS_ENUM` 不要全部写在一个文件里面，定义在各自的模块里面。
+
+##### 9. \#import 的顺序
 
    ```objective-c
+   //模板
+   #import <系统库>
+   #import <第三方库>
+   #import "其它类"
+   
    //不建议
-   - (id)init {}
+   #import "RGModel.h"
+   #import <UIKit/UIKit.h>
+   #import <Google/Analytics.h>
+   
    //推荐
-   - (instancetype)init {}
+   #import <UIKit/UIKit.h>
+   #import <Google/Analytics.h>
+   #import "RGModel.h"
    ```
 
-10. 枚举，`NS_ENUM` 不要全部写在一个文件里面，定义在各自的模块里面。
+##### 10. If 嵌套
 
-11. 分类，使用 NSString+Cateogry 替换 NSStringUtils。
+```objective-c
+//不建议
+if ([obj boolValue]){
+    if (valid){
+        //Do something
+    }    
+}
 
-12. \#import 的顺序
-
-    ```objective-c
-    //模板
-    #import <系统库>
-    #import <第三方库>
-    #import "其它类"
-    
-    //不建议
-    #import "RGModel.h"
-    #import <UIKit/UIKit.h>
-    #import <Google/Analytics.h>
-    
-    //推荐
-    #import <UIKit/UIKit.h>
-    #import <Google/Analytics.h>
-    #import "RGModel.h"
-    ```
-
-13. If 嵌套
-
-    ```objective-c
-    //不建议
-    if ([obj boolValue]){
-        if (valid){
-            //Do something
-        }    
-    }
-
-    //推荐
-    if (![obj boolValue]){
-        return;
-    }
-    if (!valid){
-        return;
-    }
-    //Do something
-    ```
+//推荐
+if (![obj boolValue]){
+    return;
+}
+if (!valid){
+    return;
+}
+//Do something
+```
 
 
 
 
 ###代码组织
 
-1. 生命周期
+##### 1. 生命周期
 
    ```objective-c
    #pragma mark - Life Cycle
@@ -415,7 +458,7 @@
    - (void)didReceiveMemoryWarning {}
    ```
 
-3. 协议实现
+##### 2. 协议实现
 
    ```objective-c
    #pragma mark - NSCopying
@@ -429,7 +472,7 @@
    #pragma mark - YYModel
    ```
 
-4. 事件处理（UIContol Action，Notification，KVO，UIGestureRecognizer）
+##### 3. 事件处理（UIContol Action，Notification，KVO，UIGestureRecognizer）
 
    ```objective-c
    #pragma mark - UIControl Action
@@ -443,14 +486,14 @@
    ```
 
 
-4. 私有方法，#pragma mark - Private Method
+##### 4. 私有方法，#pragma mark - Private Method
 
-5. 公共方法，#pragma mark - Public Method
+##### 5. 公共方法，#pragma mark - Public Method
 
-6. 属性方法（Getter and Setters）
+##### 6. 属性方法
 
    ```objective-c
-   #pragma mark - Property Method
+   #pragma mark - Property Method/Accessor Method
    - (UILabel *)centerLabel {
        if (!_centerLabel) {
            _centerLabel = [UILabel new];
@@ -463,13 +506,13 @@
 
 ### 注释
 
-1. .h 文件建议所有的公共属性，方法，~~变量~~都必须加上注释；
+##### 1. h 文件建议所有的公共属性，方法，~~变量~~都必须加上注释；
 
-2. protocol 必须加上注释；
+##### 2. `Protocol` 必须加上注释；
 
-3. 属性或变量有默认值，必须要注明；
+##### 3. 属性或变量有默认值，必须要注明；
 
-4. Block 和 方法注释必须注明其主要用途，参数和返回值必须也要注明。
+##### 4. Block 和 方法注释必须注明其主要用途，参数和返回值必须也要注明。
 
    ```objective-c
    //不建议
