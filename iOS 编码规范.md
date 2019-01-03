@@ -174,17 +174,28 @@ UICollectionViewCell * productCCell;
 
 ##### 9. 常用缩写
 
-|      |      |
-| ---- | ---- |
-|      |      |
-|      |      |
-|      |      |
-|      |      |
-|      |      |
-|      |      |
-|      |      |
-|      |      |
-|      |      |
+| 全称             	| 缩写  			 |
+| ---------------: 	| :-----------------|
+| UITableViewCell  	| Cell |
+| UICollectionCell 	| CCell 			|
+| UIViewController 	|  VC   			|
+|                  	|       			|
+|         		   	|   				|
+| Allocate 			| alloc 			|
+| Application 		| app				|
+| Calculate 		| calc 				|
+| Deallocate 		| dealloc 			|
+| Function 			| func 				|
+| Horizontal 		| horiz 			|
+| Information 		| info 				|
+| Initialize       	| init  			|
+| Integer          	| int  				|
+| Maximum          	| max  				|
+| Minimum          	| min  				|
+| Message          	| msg  				|
+| Rectangle     	|rect				|
+| Temporary   		|temp				|
+| Vertical      	|vert				|
 
 
 
