@@ -131,12 +131,12 @@ initWithTitle:image:color: //推荐
 ```objective-c
 //不建议
 UILabel * nameLbl;
-UIViewController * homeVC;
+UIButton * exitBtn;
 UICollectionViewCell * productCell; //TODO:待定
 
 //推荐
 UILabel * nameLabel;
-UIViewController * homeViewController;
+UIButton * exitButton;
 UICollectionViewCell * productCCell;
 ```
 
@@ -171,6 +171,20 @@ UICollectionViewCell * productCCell;
   UIColor+ZHRandom.h
   UIButton+RGPointBound.h
   ```
+
+##### 9. 常用缩写
+
+|      |      |
+| ---- | ---- |
+|      |      |
+|      |      |
+|      |      |
+|      |      |
+|      |      |
+|      |      |
+|      |      |
+|      |      |
+|      |      |
 
 
 
@@ -339,37 +353,7 @@ UICollectionViewCell * productCCell;
      @property(nonatomic, strong) UILabel * titleLabel;
      ```
 
-
-
-##### 6. 变量
-
-   - 尽量用变量取代属性
-
-     ```objective-c
-     //TODO:待定
-     @interface ViewController (){
-         UILabel * nameLabel;
-     }
-     @property (nonatomic, strong) UIView * nameLabel;
-     @end
-     ```
-
-   - 变量定义的位置
-
-     ```objective-c
-     //TODO:待定
-     @interface ViewController (){
-         UILabel * nameLabel;
-     }
-     @end
-     
-     @implementation ViewController{
-         UILabel * nameLabel;
-     }
-     @end
-     ```
-
-##### 7. 布尔值
+##### 6. 布尔值
 
    - OC 使用 YES 和 NO
 
@@ -379,6 +363,7 @@ UICollectionViewCell * productCCell;
      //不建议
      if (obj == nil) {}
      //推荐
+     //TODO: 使用公用方法判断
      if (obj) {}
      ```
 
@@ -391,9 +376,9 @@ UICollectionViewCell * productCCell;
      if (isAwesome) {}
      ```
 
-##### 8. 枚举，`NS_ENUM` 不要全部写在一个文件里面，定义在各自的模块里面。
+##### 7. 枚举，`NS_ENUM` 不要全部写在一个文件里面，定义在各自的模块里面。
 
-##### 9. \#import 的顺序
+##### 8. \#import 的顺序
 
    ```objective-c
    //模板
@@ -412,7 +397,7 @@ UICollectionViewCell * productCCell;
    #import "RGModel.h"
    ```
 
-##### 10. If 嵌套
+##### 9. If 嵌套
 
 ```objective-c
 //不建议
