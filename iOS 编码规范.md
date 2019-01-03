@@ -8,7 +8,7 @@
 
 
 
-###核心原则
+### 核心原则
 
 ##### 1. 语言，使用 US 英语命名
 
@@ -92,12 +92,12 @@
 
 ```objective-c
 //不建议
-    bg
-    backImage
+bg
+backImage
         
-    //推荐
-    product_detail_price_background
-    nav_bar_back
+//推荐
+product_detail_price_background
+nav_bar_back
 ```
 
 ##### 3. Localizable.string，以下划线分割模块，依次递进。首字母大写。
@@ -183,7 +183,7 @@ UICollectionViewCell * productCCell;
 
 
 
-###通用规范
+### 通用规范
 
 ##### 1. 大括号
 
@@ -444,7 +444,7 @@ if (!valid){
 
 
 
-###代码组织
+### 代码组织
 
 ##### 1. 生命周期
 
