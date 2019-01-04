@@ -143,29 +143,30 @@ Feedback_Alert_TryAgain
 ##### 7. 缩写
 
 - 常用缩写
-	| 全称             	| 缩写 |
-	| ---------------: 	| :-----------------|
-	| UITableViewCell  	| Cell |
+
+  | 全称             	| 缩写               |
+  | ---------------: 	| :-----------------|
+  | UITableViewCell  	| Cell              |
   | UICollectionCell 	| CCell 			|
   | UIViewController 	|  VC   			|
-  | UINavigationController | NC |
-  | UIGestureRecognizer | GR |
-  | Allocate 			| alloc 			|
-  | Application 		| app				|
+  | UINavigationController | NC 			|
+  | UIGestureRecognizer | GR 				|
+  | Allocate 			| alloc 				|
+  | Application 		| app					|
   | Calculate 		| calc 				|
   | Deallocate 		| dealloc 			|
   | Function 			| func 				|
-  | Horizontal 		| horiz 			|
+  | Horizontal 		| horiz 				|
   | Information 		| info 				|
   | Initialize       	| init  			|
-  | Integer          	| int  				|
-  | Maximum          	| max  				|
-  | Minimum          	| min  				|
-  | Message          	| msg  				|
-  | Rectangle     	|rect				|
-  | Temporary   		|temp				|
-  | Vertical      	|vert				|
-	
+  | Integer          	| int  			|
+  | Maximum          	| max  			|
+  | Minimum          	| min  			|
+  | Message          	| msg  			|
+  | Rectangle     	|rect					|
+  | Temporary   		|temp					|
+  | Vertical      	|vert					|
+
 - 除上列常用缩写以外，其它组件不建议缩写
 
     ```objective-c
