@@ -1,6 +1,6 @@
 # iOS 编码规范
 
-> 2019.1.3
+> v0.0.1，2019.1.3
 >
 > 本文档并不会涉及到代码优化：NSInteger 替代 int，NSArray 类型属性需要用 copy 特性等。
 >
@@ -12,7 +12,7 @@
 
 ##### 1. 语言，使用 US 英语命名
 
-> 文件名，类，方法，宏，ImageSet，Localizable.string Key，配置，#pragma mark，model 字段）
+> 文件名，类，方法，宏，ImageSet，Localizable.string Key，配置，#pragma mark，model 字段
 
    ```objective-c
    Colour，manzengId，颜色 //不建议(英式英语，拼音，中文)
@@ -22,9 +22,9 @@
    #pragma mark - Property Method //推荐
    ```
 
-##### 2. 代码风格，简单易懂，逻辑清晰
+##### 2. 代码风格
 
-> 清晰永远比简洁更重要。
+> 简单易懂，逻辑清晰。清晰永远比简洁更重要
 
    ```objective-c
    insertObject:at: //不建议
@@ -87,7 +87,9 @@
      #define RGNullFilterString(s) //推荐
      ```
 
-##### 2. ImageSet，以下划线分割模块，依次递进。全小写。
+##### 2. ImageSet
+
+- 以下划线分割模块，依次递进。全小写。
 
 ```objective-c
 //不建议
@@ -99,7 +101,9 @@ product_detail_price_background
 nav_bar_back
 ```
 
-##### 3. Localizable.string，以下划线分割模块，依次递进。首字母大写。
+##### 3. Localizable.string
+
+- 以下划线分割模块，依次递进。首字母大写。
 
 ```objective-c
 //不建议
@@ -111,34 +115,68 @@ BuyerShow_MyStyle_Edit
 Feedback_Alert_TryAgain
 ```
 
-##### 4. 前缀
-- 前缀以全大写命名。比如 RG、ZF；
+
+
+##### 4. Model
+
+ - 当后台 JSON 字段跟 OC 语言关键字冲突的时候，推荐自定义映射；
+ - 当后台 JSON 字段不符合 OC 编码规范的时候，推荐自定义映射。
+
+##### 5. 前缀
+
+- 前缀以全大写命名。比如 **RG**、**ZF**；
 - 类、分类、协议、操作宏、枚举使用前缀，但不要为成员变量，方法使用前缀；
-- 命名前缀不要与 Cocoa 框架与第三方组件冲突。比如 UI、NS、CG。
+- 命名前缀不要与 Cocoa 框架与第三方组件冲突。比如 **UI**、**NS**、**CG**。
+- 组件抽离公用模块，前缀推荐使用 **GG**；
+- 组件抽离公用模块，分类方法前缀推荐使用 **gg**；
 
 
 
-##### 6. 不要使用 “and” 和 “width” 来连接参数
+##### 6. and & with
 
-```objective-c
-initWithTitle:withImage:andColor: //不建议
+- 不要使用 “and” 和 “with” 来连接参数
+    ```objective-c
+    initWithTitle:withImage:andColor: //不建议
+    initWithTitle:image:color: //推荐
+    ```
 
-initWithTitle:image:color: //推荐
-```
+##### 7. 缩写
 
-##### 7. 组件名称不建议缩写
+- 常用缩写
+	| 全称             	| 缩写 |
+	| ---------------: 	| :-----------------|
+	| UITableViewCell  	| Cell |
+  | UICollectionCell 	| CCell 			|
+  | UIViewController 	|  VC   			|
+  | UINavigationController | NC |
+  | UIGestureRecognizer | GR |
+  | Allocate 			| alloc 			|
+  | Application 		| app				|
+  | Calculate 		| calc 				|
+  | Deallocate 		| dealloc 			|
+  | Function 			| func 				|
+  | Horizontal 		| horiz 			|
+  | Information 		| info 				|
+  | Initialize       	| init  			|
+  | Integer          	| int  				|
+  | Maximum          	| max  				|
+  | Minimum          	| min  				|
+  | Message          	| msg  				|
+  | Rectangle     	|rect				|
+  | Temporary   		|temp				|
+  | Vertical      	|vert				|
+	
+- 除上列常用缩写以外，其它组件不建议缩写
 
-```objective-c
-//不建议
-UILabel * nameLbl;
-UIButton * exitBtn;
-UICollectionViewCell * productCell; //TODO:待定
-
-//推荐
-UILabel * nameLabel;
-UIButton * exitButton;
-UICollectionViewCell * productCCell;
-```
+    ```objective-c
+    //不建议
+    UILabel * nameLbl;
+    UIButton * exitBtn;
+    
+    //推荐
+    UILabel * nameLabel;
+    UIButton * exitButton;
+    ```
 
 ##### 8. 文件命名
 
@@ -171,31 +209,6 @@ UICollectionViewCell * productCCell;
   UIColor+ZHRandom.h
   UIButton+RGPointBound.h
   ```
-
-##### 9. 常用缩写
-
-| 全称             	| 缩写  			 |
-| ---------------: 	| :-----------------|
-| UITableViewCell  	| Cell |
-| UICollectionCell 	| CCell 			|
-| UIViewController 	|  VC   			|
-|                  	|       			|
-|         		   	|   				|
-| Allocate 			| alloc 			|
-| Application 		| app				|
-| Calculate 		| calc 				|
-| Deallocate 		| dealloc 			|
-| Function 			| func 				|
-| Horizontal 		| horiz 			|
-| Information 		| info 				|
-| Initialize       	| init  			|
-| Integer          	| int  				|
-| Maximum          	| max  				|
-| Minimum          	| min  				|
-| Message          	| msg  				|
-| Rectangle     	|rect				|
-| Temporary   		|temp				|
-| Vertical      	|vert				|
 
 
 
@@ -366,16 +379,16 @@ UICollectionViewCell * productCCell;
 
 ##### 6. 布尔值
 
-   - OC 使用 YES 和 NO
+   - OC 使用 YES 和 NO；
 
-   - nil 会解析成 NO
+   - nil 会解析成 NO。在不确定类型的情况下，推荐使用公共方法判断。
 
      ```objective-c
      //不建议
      if (obj == nil) {}
      //推荐
-     //TODO: 使用公用方法判断
      if (obj) {}
+     if (RGNullFilterObj(obj)) {}
      ```
 
    - 不要拿变量跟 YES 和 NO 比较
@@ -387,9 +400,15 @@ UICollectionViewCell * productCCell;
      if (isAwesome) {}
      ```
 
-##### 7. 枚举，`NS_ENUM` 不要全部写在一个文件里面，定义在各自的模块里面。
+##### 7. 枚举
 
-##### 8. \#import 的顺序
+ - NS_ENUM 不要全部写在一个文件里面，定义在各自的模块里面。
+
+##### 8. 分类
+
+ - 推荐多个分类整合到一个分类文件里面。
+
+##### 9. \#import 的顺序
 
    ```objective-c
    //模板
@@ -408,7 +427,7 @@ UICollectionViewCell * productCCell;
    #import "RGModel.h"
    ```
 
-##### 9. If 嵌套
+##### 10. If 嵌套
 
 ```objective-c
 //不建议
@@ -436,95 +455,109 @@ if (!valid){
 ##### 1. 生命周期
 
    ```objective-c
-   #pragma mark - Life Cycle
-   - (instancetype)init;
-   - (void)dealloc {}
-   - (void)viewDidLoad {}
-   - (void)viewWillAppear:(BOOL)animated {}
-   - (void)viewDidLayoutSubviews {}
-   - (void)didReceiveMemoryWarning {}
+#pragma mark - Life Cycle
+- (instancetype)init;
+- (void)dealloc {}
+- (void)viewDidLoad {}
+- (void)viewWillAppear:(BOOL)animated {}
+- (void)viewDidLayoutSubviews {}
+- (void)didReceiveMemoryWarning {}
    ```
 
 ##### 2. 协议实现
 
    ```objective-c
-   #pragma mark - NSCopying
-   + (id)copyWithZone:(struct _NSZone *)zone
-       
-   #pragma mark - NSObject    
-   - (BOOL)isEqual:(id)object;
-   
-   #pragma mark - UITableViewDelegate
-   #pragma mark - WKNavigationDelegate
-   #pragma mark - YYModel
+#pragma mark - NSCopying
++ (id)copyWithZone:(struct _NSZone *)zone
+
+#pragma mark - NSObject    
+- (BOOL)isEqual:(id)object;
+
+#pragma mark - UITableViewDelegate
+#pragma mark - WKNavigationDelegate
+#pragma mark - YYModel
    ```
 
-##### 3. 事件处理（UIContol Action，Notification，KVO，UIGestureRecognizer）
+##### 3. 事件处理
+
+- UIContol Action，Notification，KVO，UIGestureRecognizer 等
 
    ```objective-c
    #pragma mark - UIControl Action
    -(void)submitAction:(id)sender {}
-   
+
    #pragma mark - Notification Action
    - (void)userSignOutAction:(NSNotification *)notification {}
-   
+
    #pragma mark - Touch Action
    - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
    ```
 
+##### 4. 私有方法
 
-##### 4. 私有方法，#pragma mark - Private Method
+- \#pragma mark - Private Method
 
-##### 5. 公共方法，#pragma mark - Public Method
+##### 5. 公共方法
+
+- \#pragma mark - Public Method
 
 ##### 6. 属性方法
 
    ```objective-c
-   #pragma mark - Property Method
-   - (UILabel *)centerLabel {
-       if (!_centerLabel) {
-           _centerLabel = [UILabel new];
-       }
-       return _centerLabel;
+#pragma mark - Property Method
+- (UILabel *)centerLabel {
+   if (!_centerLabel) {
+       _centerLabel = [UILabel new];
    }
+   return _centerLabel;
+}
    ```
 
 
 
 ### 注释
 
-##### 1. h 文件建议所有的公共属性，方法，~~变量~~都必须加上注释；
+##### 1. h 文件
 
-##### 2. `Protocol` 必须加上注释；
+- 推荐所有的公共属性，方法，变量必须加上注释
 
-##### 3. 属性或变量有默认值，必须要注明；
+##### 2. `Protocol`
+
+- 必须加上注释
+
+##### 3. 属性或变量
+
+- 有默认值，必须要注明
 
 ```objective-c
-//推荐
-/** The backdrop for your app’s user interface and the object that dispatches events to your views. */
-@property (strong, nonatomic) UIWindow *window;
+//推荐下面两种注释方式
+/** default is NO. doesn't check superviews */
+/// default is NO. doesn't check superviews
+@property(nonatomic,getter=isHidden) BOOL hidden;
 ```
 
-##### 4. Block 和 方法注释必须注明其主要用途，参数和返回值必须也要注明。
+##### 4. Block 和 方法
 
-   ```objective-c
-   //不建议
-   //Note that NSArray objects are not like C arrays...
-   
-   //推荐
-   /**
-   Note that NSArray objects are not like C arrays...
-    
-    @param anObject <#anObject description#>
-    @param index <#index description#>
-    @return <#return value description#>
-    */
-   - (NSUInteger)insertObject:(ObjectType)anObject atIndex:(NSUInteger)index;
-   ```
+- 注释必须注明其主要用途，参数和返回值必须也要注明。
+
+    ```objective-c
+       //不建议
+       //Note that NSArray objects are not like C arrays...
+
+       //推荐
+       /**
+       Note that NSArray objects are not like C arrays...
+
+        @param anObject <#anObject description#>
+        @param index <#index description#>
+        @return <#return value description#>
+        */
+       - (NSUInteger)insertObject:(ObjectType)anObject atIndex:(NSUInteger)index;
+    ```
 
    > 快捷键：alt + command + / 自动生成上述注释模板
 
-##### 5. 其它建议注释方式
+##### 5. 其它推荐注释方式
 
  - 标记未完成的功能
 
