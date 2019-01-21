@@ -81,11 +81,20 @@
      //常量宏
      #define useLocalhost 0 //不建议
      #define kUseLocalHost 0 //推荐
-
+     
      //操作宏
      #define NullFilterString(s) //不建议
      #define RGNullFilterString(s) //推荐
      ```
+   - Block
+         ```objective-c
+        //推荐，Block 声明等同于类名
+        typedef void(^RGRequestCompletionBlock)(void);
+        
+        //推荐，Block 定义等同于变量
+        RGRequestCompletionBlock successCompletionBlock;
+        
+         ```
 
 ##### 2. ImageSet
 
@@ -151,21 +160,24 @@ Feedback_Alert_TryAgain
   | UIViewController 	|  VC   			|
   | UINavigationController | NC 			|
   | UIGestureRecognizer | GR 				|
-  | Allocate 			| alloc 				|
-  | Application 		| app					|
-  | Calculate 		| calc 				|
-  | Deallocate 		| dealloc 			|
+  | UIButton 			| Btn 				|
+  | Class 				| Cls 				|
+  | Dictionary			| Dic				|
+  | Allocate 			| alloc 			|
+  | Application 		| app				|
+  | Calculate 			| calc 				|
+  | Deallocate 			| dealloc 			|
   | Function 			| func 				|
-  | Horizontal 		| horiz 				|
+  | Horizontal 			| horiz 			|
   | Information 		| info 				|
   | Initialize       	| init  			|
-  | Integer          	| int  			|
-  | Maximum          	| max  			|
-  | Minimum          	| min  			|
-  | Message          	| msg  			|
-  | Rectangle     	|rect					|
-  | Temporary   		|temp					|
-  | Vertical      	|vert					|
+  | Integer          	| int  				|
+  | Maximum          	| max  				|
+  | Minimum          	| min  				|
+  | Message          	| msg  				|
+  | Rectangle     		|rect				|
+  | Temporary   		|temp				|
+  | Vertical      		|vert				|
 
 - 除上列常用缩写以外，其它组件不建议缩写
 
@@ -380,7 +392,7 @@ Feedback_Alert_TryAgain
 
 ##### 6. 布尔值
 
-   - OC 使用 YES 和 NO；
+   - OC 推荐使用 YES 和 NO，禁止使用 true 和 false，1 和 0；
 
    - nil 会解析成 NO。在不确定类型的情况下，推荐使用公共方法判断。
 
